@@ -128,4 +128,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <!-- 老人基本信息（含年龄、性别、入住时间、房间号、护理等级），供 Dify 调用 -->
+    <select id="selectElderBasicInfo" resultType="com.zzyl.nursing.vo.ElderBasicInfoVo">
+        select
+            e.id,
+            e.name,
+            e.sex,
+            case e.sex when 1 then '男' when 0 then '女' else '未知' end as sexDesc,
+            case
+                when char_length(e.id_card_no) = 18
+                    then timestampdiff(YEAR, str_to_date(substring(e.id_card_no, 7, 8), '%Y%m%d'), curdate())
+                when char_length(e.id_card_no) = 15
+                    then timestampdiff(YEAR, str_to_date(concat('19', substring(e.id_card_no, 7, 6)), '%Y%m%d'), curdate())
+                else null
+            end as age,
+            date_format(c.start_date, '%Y-%m-%d') as checkInTime,
+            c.nursing_level_name as nursingLevelName,
+            e.bed_number as bedNumber,
+            r.code as roomNumber
+        from elder e
+        left join check_in c on c.elder_id = e.id
+        left join bed b on b.id = e.bed_id
+        left join room r on r.id = b.room_id
+        <where>
+            <if test="nameOrId != null and nameOrId != ''">
+                and (e.id = #{nameOrId} or e.name like concat('%', #{nameOrId}, '%'))
+            </if>
+        </where>
+        order by c.start_date desc
+    </select>
 </mapper>

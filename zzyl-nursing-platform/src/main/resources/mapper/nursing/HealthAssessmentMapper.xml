@@ -108,4 +108,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <!-- 老人健康信息（含健康评分、风险等级、报告总结），供 Dify 调用 -->
+    <select id="selectElderHealthInfo" resultType="com.zzyl.nursing.vo.ElderHealthInfoVo">
+        select
+            ha.id,
+            ha.elder_name as elderName,
+            ha.health_score as healthScore,
+            had.risk_level as riskLevel,
+            had.report_summary as reportSummary
+        from health_assessment ha
+        left join health_assessment_detail had on had.health_assessment_id = ha.id
+        left join elder e on e.id_card_no = ha.id_card
+        <where>
+            <if test="nameOrId != null and nameOrId != ''">
+                and (e.id = #{nameOrId} or ha.elder_name like concat('%', #{nameOrId}, '%'))
+            </if>
+        </where>
+        order by ha.assessment_time desc
+    </select>
 </mapper>

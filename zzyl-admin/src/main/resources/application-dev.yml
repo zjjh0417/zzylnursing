@@ -15,6 +15,7 @@ ruoyi:
 
 # 开发环境配置
 server:
+  address: 0.0.0.0   # 新增这一行！允许局域网所有机器访问
   # 服务器的HTTP端口，默认为8080
   port: 9901
   servlet:
@@ -55,7 +56,7 @@ spring:
       master:
         url: jdbc:mysql://localhost:3306/zzyl?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
-        password: 1234
+        password: 123456
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -131,7 +132,7 @@ spring:
     # 数据库索引
     database: 0
     # 密码
-    password: 123456
+#    password: 123456
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -192,7 +193,7 @@ oss:
   endpoint: oss-cn-beijing.aliyuncs.com
   accessKeyId: ${OSS_ACCESS_KEY_ID}
   accessKeySecret: ${OSS_ACCESS_KEY_SECRET}
-  bucketName: itheim
+  bucketName: java-train
 deepseek:
   baseUrl: https://api.deepseek.com/chat/completions
   apiKey: ${DEEPSEEK_API_KEY}

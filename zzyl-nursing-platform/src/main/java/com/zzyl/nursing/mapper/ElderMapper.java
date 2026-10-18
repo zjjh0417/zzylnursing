@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.zzyl.common.core.domain.entity.SysUser;
 import com.zzyl.nursing.domain.Elder;
+import com.zzyl.nursing.vo.ElderBasicInfoVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -64,4 +66,12 @@ public interface ElderMapper extends BaseMapper<Elder>
      * @return 结果
      */
     public int deleteElderByIds(Long[] ids);
+
+    /**
+     * 查询老人基本信息（供 Dify 调用）
+     * 
+     * @param nameOrId 老人姓名或ID
+     * @return 老人基本信息集合
+     */
+    public List<ElderBasicInfoVo> selectElderBasicInfo(@Param("nameOrId") String nameOrId);
 }

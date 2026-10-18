@@ -5,6 +5,7 @@ import com.zzyl.nursing.domain.HealthAssessment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zzyl.nursing.dto.HealthAssessmentDto;
 import com.zzyl.nursing.vo.HealthAssessmentVo;
+import com.zzyl.nursing.vo.ElderHealthInfoVo;
 
 /**
  * 健康评估Service接口
@@ -61,4 +62,12 @@ public interface IHealthAssessmentService extends IService<HealthAssessment>
      * @return 结果
      */
     public int deleteHealthAssessmentById(Long id);
+
+    /**
+     * 查询老人健康信息（供 Dify 调用）
+     *
+     * @param nameOrId 老人姓名或ID
+     * @return 老人健康信息集合
+     */
+    public List<ElderHealthInfoVo> selectElderHealthInfo(String nameOrId);
 }

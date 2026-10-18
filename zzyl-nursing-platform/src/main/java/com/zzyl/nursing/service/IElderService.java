@@ -3,6 +3,7 @@ package com.zzyl.nursing.service;
 import java.util.List;
 import com.zzyl.nursing.domain.Elder;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zzyl.nursing.vo.ElderBasicInfoVo;
 
 /**
  * 老人Service接口
@@ -59,4 +60,12 @@ public interface IElderService extends IService<Elder>
      * @return 结果
      */
     public int deleteElderById(Long id);
+
+    /**
+     * 查询老人基本信息（供 Dify 调用）
+     *
+     * @param nameOrId 老人姓名或ID
+     * @return 老人基本信息集合
+     */
+    public List<ElderBasicInfoVo> selectElderBasicInfo(String nameOrId);
 }

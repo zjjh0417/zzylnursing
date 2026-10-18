@@ -17,6 +17,7 @@ import com.zzyl.nursing.domain.HealthAssessmentDetail;
 import com.zzyl.nursing.dto.HealthAssessmentDto;
 import com.zzyl.nursing.mapper.HealthAssessmentDetailMapper;
 import com.zzyl.nursing.vo.HealthAssessmentVo;
+import com.zzyl.nursing.vo.ElderHealthInfoVo;
 import com.zzyl.nursing.vo.health.HealthReportVo;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -285,6 +286,17 @@ public class HealthAssessmentServiceImpl extends ServiceImpl<HealthAssessmentMap
     @Override
     public int deleteHealthAssessmentById(Long id) {
         return removeById(id) ? 1 : 0;
+    }
+
+    /**
+     * 查询老人健康信息（供 Dify 调用）
+     *
+     * @param nameOrId 老人姓名或ID
+     * @return 老人健康信息集合
+     */
+    @Override
+    public List<ElderHealthInfoVo> selectElderHealthInfo(String nameOrId) {
+        return healthAssessmentMapper.selectElderHealthInfo(nameOrId);
     }
 
 }

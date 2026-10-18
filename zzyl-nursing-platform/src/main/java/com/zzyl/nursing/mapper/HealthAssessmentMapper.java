@@ -2,8 +2,10 @@ package com.zzyl.nursing.mapper;
 
 import java.util.List;
 import com.zzyl.nursing.domain.HealthAssessment;
+import com.zzyl.nursing.vo.ElderHealthInfoVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 健康评估Mapper接口
@@ -61,4 +63,12 @@ public interface HealthAssessmentMapper extends BaseMapper<HealthAssessment>
      * @return 结果
      */
     public int deleteHealthAssessmentByIds(Long[] ids);
+
+    /**
+     * 查询老人健康信息（供 Dify 调用）
+     * 
+     * @param nameOrId 老人姓名或ID
+     * @return 老人健康信息集合
+     */
+    public List<ElderHealthInfoVo> selectElderHealthInfo(@Param("nameOrId") String nameOrId);
 }

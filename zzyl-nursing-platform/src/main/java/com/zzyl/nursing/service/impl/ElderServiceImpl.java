@@ -2,6 +2,7 @@ package com.zzyl.nursing.service.impl;
 
 import java.util.List;
 import com.zzyl.common.utils.DateUtils;
+import com.zzyl.nursing.vo.ElderBasicInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zzyl.nursing.mapper.ElderMapper;
@@ -91,6 +92,18 @@ public class ElderServiceImpl extends ServiceImpl<ElderMapper,Elder> implements 
     public int deleteElderById(Long id)
     {
         return removeById(id)?1:0;
+    }
+
+    /**
+     * 查询老人基本信息（供 Dify 调用）
+     *
+     * @param nameOrId 老人姓名或ID
+     * @return 老人基本信息集合
+     */
+    @Override
+    public List<ElderBasicInfoVo> selectElderBasicInfo(String nameOrId)
+    {
+        return elderMapper.selectElderBasicInfo(nameOrId);
     }
 
 }
